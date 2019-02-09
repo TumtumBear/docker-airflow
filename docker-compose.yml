@@ -1,5 +1,13 @@
 version: "2"
 services:
+
+  postgres:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_USER=airflow
+    - POSTGRES_PASSWORD=airflow
+    - POSTGRES_DB=airflow
+
   airflow:
     image: tumtumbear/airflow
     build: .
@@ -7,6 +15,10 @@ services:
     - "8080:8080"
     depends_on:
     - mongo
+    - postgres
+    environment:
+    - LOAD_EX=n
+    - EXECUTOR=Local
     volumes:
     - /Users/commanderdata/projects/auctionhunter/:/usr/local/airflow/dags
   mongo:
