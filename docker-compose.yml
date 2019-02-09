@@ -1,0 +1,21 @@
+version: "2"
+services:
+  airflow:
+    image: tumtumbear/airflow
+    build: .
+    ports:
+    - "8080:8080"
+    depends_on:
+    - mongo
+    volumes:
+    - /Users/commanderdata/projects/auctionhunter/:/usr/local/airflow/dags
+  mongo:
+    image: mongo
+    ports:
+    - "27018:27017"
+    volumes:
+    - db-data:/data/db
+    - mongo-config:/data/configdb
+volumes:
+  db-data:
+  mongo-config:

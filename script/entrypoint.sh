@@ -2,6 +2,9 @@
 
 TRY_LOOP="20"
 
+# Start running tor...
+/tor.sh
+
 : "${REDIS_HOST:="redis"}"
 : "${REDIS_PORT:="6379"}"
 : "${REDIS_PASSWORD:=""}"
