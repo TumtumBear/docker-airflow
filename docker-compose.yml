@@ -7,6 +7,8 @@ services:
     - POSTGRES_USER=airflow
     - POSTGRES_PASSWORD=airflow
     - POSTGRES_DB=airflow
+    volumes:
+    - postgres-db-volume:/data/postgres
 
   airflow:
     image: tumtumbear/airflow
@@ -21,6 +23,9 @@ services:
     - EXECUTOR=Local
     volumes:
     - /Users/commanderdata/projects/auctionhunter/:/usr/local/airflow/dags
+    networks:
+    - airflow_mysql_net
+
   mongo:
     image: mongo
     ports:
@@ -28,6 +33,24 @@ services:
     volumes:
     - db-data:/data/db
     - mongo-config:/data/configdb
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "Cgeek898"
+      MYSQL_DATABASE: "ebay"
+    volumes:
+    - mysql_data:/var/lib/mysql
+    restart: always
+    networks:
+    - airflow_mysql_net
+
 volumes:
   db-data:
   mongo-config:
+  mysql_data:
+  postgres-db-volume:
+
+networks:
+  airflow_mysql_net:
+    driver: bridge
