@@ -22,7 +22,7 @@ services:
     - LOAD_EX=n
     - EXECUTOR=Local
     volumes:
-    - /Users/commanderdata/projects/auctionhunter/:/usr/local/airflow/dags
+    - /Users/commanderdata/projects/auctionhunter/dag/:/usr/local/airflow/dags
 
   mongo:
     image: mongo
